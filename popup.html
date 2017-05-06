@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Chrome recorder Extension</title>
+    <link href="dist/semantic.min.css" rel="stylesheet" />
+    <link href="css/main.min.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet'
+          type='text/css'>
+    <link href="css/style.css" rel="stylesheet"/>
+
+    <style>
+      body.pushable {
+        background-color: #fff !important;
+      }
+      .ui.segment.wrapper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 999999;
+        align-items: center;
+        display: flex;
+      }
+      .loader {
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+      #login {
+        text-align: center;
+        display: inline-block;
+      }
+      .commandContainer {
+        padding: 10%;
+        padding-top: 0%;
+      }
+      .commandContainer .ui.primary.button {
+        width: 100%;
+        margin-top: 14px;
+      }
+      .ui.mini.circular.image {
+        height: 35px;
+      }
+    </style>
+  </head>
+  <body class="admin">
+    <div class="ui center aligned segment wrapper">
+      <div class="loader">
+        <a href="http://userstory.io/login" target="_blank" class="ui primary button" id="login">Login with google</a>
+      </div>
+    </div>
+    <!--sidebar mobile-->
+    <div class="ui vertical push sidebar menu  thin" id="toc">
+    </div>
+    <!--sidebar mobile-->
+    <!--navbar mobile-->
+    <div class="mobilenavbar">
+    </div>
+    <!--navbar mobile-->
+    <div class="pusher commandContainer">
+      <div class="top-margin" style="margin-top: 65px;width: 100%"></div>
+      <div class="buttonSection">
+        <div class="ui primary button" id="tab">Record tab</div><br>
+        <div>
+          <a href="http://www.google.com" target="_blank"><button>Click me !</button></a>
+        </div>
+        <div class="window_nav">
+          <ul>
+            <li>
+              <a class="capture-visible">
+                <span class="icon icon1"></span> <span tr="visiblescreenshot">Take Screenshot</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="alert"></div>
+        <h3 class="ui header">You can select configuration on <a href="#!" id="options">options</a></h3>
+      </div>
+
+      <p id="errorPanel"></p>
+    </div>
+
+  </body>
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="libs/md5.js"></script>
+  <!-- <script src="libs/jquery.js"></script> -->
+  <script src="js/common.js"></script>
+  <script src="js/screenshot.js"></script>
+  <script src="js/codeinjector.js"></script>
+  <script src="js/background.js"></script>
+  <!-- <script type="text/javascript" src="libs/jquery.js"></script> -->
+  <!-- <script type="text/javascript" src="js/common.js"></script> -->
+
+  <script src="js/translate.js"></script>
+
+  <script src="dist/semantic.min.js"></script>
+  <script src="js/customjs/custom-menu.js"></script>
+  <script src="js/app.min.js"></script>
+  <script src="settings.js"></script>
+  <script src="extension.js"></script>
+  <script src="popup.js"></script>
+  <script src="js/popup.js"></script>
+
+</html>

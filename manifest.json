@@ -1,0 +1,77 @@
+{
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "name":"UserStory",
+   "version": "1.0.4",
+   "description": "UserStory is a chrome extension to record video and upload to our application",
+   "manifest_version":2,
+   "minimum_chrome_version":"49",
+   "background":{
+      "scripts":[
+          "js/whammy.js",
+         "js/constants.js",
+         "js/videoRecorder.js",
+         "background.js",
+         "RecordRTC.min.js",
+         "libs/md5.js",
+         "libs/jquery.js",
+          "js/common.js",
+          "settings.js",
+          "extension.js",
+          "js/screenshot.js",
+          "js/codeinjector.js",
+          "js/background.js"
+      ],
+      "persistent":false
+   },
+   "content_scripts":[
+      {
+         "matches":[
+            "<all_urls>"
+         ],
+         "js":[
+            "jquery.js",
+            "RecordRTC.min.js",
+            "content-script.js"
+         ]
+      }
+   ],
+   "browser_action":{
+      "default_icon":"images/main-icon.png",
+      "default_title":"Record Screen",
+      "default_popup": "popup.html"
+   },
+   "icons":{
+      "16":"images/main-icon.png",
+      "22":"images/main-icon.png",
+      "32":"images/main-icon.png",
+      "48":"images/main-icon.png",
+      "128":"images/main-icon.png"
+   },
+   "permissions":[
+      "identity",
+      "desktopCapture",
+      "storage",
+      "cookies",
+      "contextMenus",
+      "tabs",
+      "tabCapture",
+      "<all_urls>",
+      "activeTab",
+      "clipboardWrite"
+   ],
+
+   "optional_permissions": ["desktopCapture" ],
+
+   "web_accessible_resources":[
+      "images/main-icon.png",
+      "html/videoControls.html"
+   ],
+   "options_ui":{
+      "page":"options.html",
+      "chrome_style": true
+   },
+   "oauth2": {
+      "client_id": "492964085325-44vsvkn680rvforgc90se1vtjs7kng8t.apps.googleusercontent.com",
+      "scopes": ["profile", "email"]
+   }
+}

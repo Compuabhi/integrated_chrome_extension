@@ -1,0 +1,63 @@
+<style type="text/css">
+  .wrapper {
+    position: fixed;
+    bottom: 0%;
+    right: -100px;
+    z-index: 8888;
+    background-color: #fff;
+    padding-bottom: 2%;
+    min-height: 120px;
+  }
+  #marker {
+    background-image: url(http://userstory.io/static/img/favicon.ico);
+    background-repeat: no-repeat;
+    width: 65px;
+    height: 65px;
+    right: 154px;
+    bottom: 50px;
+    position: absolute;
+  }
+  .buttons {
+    position: relative;
+    float: right;
+    
+  }
+  .record, .videoControls {
+    display: none;
+    flex-direction: column;
+  }
+
+  button {
+    color: #FFF;
+    background-color: #0095ff;
+    border-color: #07c;
+    box-shadow: inset 0 1px 0 #3af;
+    text-decoration: none;
+    transition: all .1s ease-in-out;
+    outline: none;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    padding: .61538462em 1em;
+    margin: 0.1rem;
+  }
+  button:hover {
+    color: rgba(255,255,255,0.9);
+    background-color: #07c;
+    border-color: #005999;
+    box-shadow: inset 0 1px 0 #3af;
+  }
+</style>
+
+<div class="wrapper" >
+  
+  <div id="marker"></div>
+
+  <div class="buttons">
+    <div class="videoControls">
+      <button id="pause">pause</button>
+      <button id="resume">resume</button>
+      <button id="stop">stop</button>
+      <button id="delete">delete</button>
+    </div>
+  </div>
+</div>
