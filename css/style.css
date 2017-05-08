@@ -739,57 +739,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .buttons button.print .icon {
 	background-image: url(../images/print.png);
 }
-.buttons button.gdrive .icon {
-	background-image: url(../images/googledrive.png);
-}
-.buttons button.gmail .icon {
-	background-image: url(../images/gmail.png);
-}
-.buttons button.dropbox .icon {
-	background-image: url(../images/dropbox.png);
-}
-.buttons button.facebook .icon {
-	background-image: url(../images/facebook.png);
-}
-.buttons button.evernote .icon {
-	background-image: url(../images/evernote.png);
-}
-.buttons button.wordpress .icon {
-	background-image: url(../images/wordpress.png);
-}
-.buttons button.email .icon {
-	background-image: url(../images/email.png);
-}
-.buttons button.vk .icon {
-	background-image: url(../images/vk.png);
-}
-.buttons button.twitter .icon {
-	background-image: url(../images/twitter.png);
-}
-.buttons button.gplus .icon {
-	background-image: url(../images/gplus.png);
-}
-.buttons button.microsoft .icon {
-	background-image: url(../images/microsoft.png);
-}
-.buttons button.blogger .icon {
-	background-image: url(../images/blogger.png);
-}
-.buttons button.pinterest .icon {
-	background-image: url(../images/pinterest.png);
-}
-.buttons button.qrcode .icon {
-	background-image: url(../images/qrcode.png);
-}
-.buttons button.digg .icon {
-	background-image: url(../images/digg.png);
-}
-.buttons button.framebench .icon {
-	background-image: url(../images/framebench.png);
-}
-.buttons button.reddit .icon {
-	background-image: url(../images/reddit.png);
-}
 
 .footerToolbar .rightFooter button.download .icon {
 	background-image: url(../images/save.png);

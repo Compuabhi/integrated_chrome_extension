@@ -123,6 +123,14 @@ var sizes = {
                         console.log('emailId',cookie[0].value);
                         formData.append('email', cookie[0].value);
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+                        
+=======
+>>>>>>> 03f6a9e... Add screenshot module
+=======
+>>>>>>> 03f6a9e0b81e40b81bfe00cb782806a4e9a1a944
+                        console.log('FormData',formData);
                         if (this.toolbar && imageData == this.toolbar.last_image_data) {
                             callback(this.toolbar.last_image_url);
 
@@ -729,7 +737,6 @@ function Toolbar(options) {
     this.storageGet = function(inVar, def) {
         var key = (this.namespace && 'toolbarnonamespace') + '_' + inVar;
         var ans;
-
         if (extStorageGet)
             ans = extStorageGet(key)
         else

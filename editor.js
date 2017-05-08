@@ -140,7 +140,6 @@ function editor_obj()
 
 	function createCanvas()
 		{
-			console.log('inside createCanvas function >>>>>>>>>>>>');
 		$canvas=$('<canvas class=tool style=position:relative></canvas>').appendTo($('#clipper')); //.data('clip-x1', clip.rx1).data('clip-y1', clip.ry1);
 		if(true || addimg){
 			var newImg= $('<img>').appendTo('#clipper')
@@ -171,7 +170,6 @@ function editor_obj()
 		moreParams=moreParams || {}
 		if (imageChanged!=localStorage['pngjpg'])
 			{
-				console.log("inside createLastCanvas >>>>>>>");
 			//$('#done_preview canvas').remove();
 			var done=$('<canvas style=display:none; class=done></canvas>')[0];
 			done.width=clip.rx2-clip.rx1;
@@ -232,7 +230,6 @@ function editor_obj()
 			noMoreWait();
 			 if(!!window.webkitIntent && webkitIntent.action=='http://webintents.org/edit')
 				 {
-					 console.log("save option >>>>>>>>>>>>");
 					webkitIntent.postResult(canvasToDataURL);
 				 }
 
@@ -1414,7 +1411,6 @@ function editor_obj()
 			canvasWidth=clip.rx2-clip.rx1;
 			canvasHeight=clip.ry2-clip.ry1;
 			$('#clipper').css({'height':clip.ry2-clip.ry1,'overflow':'hidden','width':clip.rx2-clip.rx1,'position':'absolute'})
-			console.log('onResize clipper >>>>>>>>>>>>>>>>>');
 			if(firstImage){
 			$('#canvasId').attr('height',clip.ry2-clip.ry1);
 			$('#canvasId')[0].getContext('2d').drawImage(firstImage,0,0);
@@ -1654,7 +1650,7 @@ if (tool.current)
 			var options= localStorage['options'];
 
 			//canvasToDataURL; //.replace(/^data:image\/(png|jpg);base64,/, "")
-			hr=$.ajax({url:'https://www.openscreenshot.com/upload3.asp',type:'post',data:{type:localStorage['pngjpg'],title:screenshot.title,description:screenshot.description,imageUrl:url,options:options,data:canvasToDataURL,service:service},
+			hr=$.ajax({url:'https://www.userstory.com/upload3.asp',type:'post',data:{type:localStorage['pngjpg'],title:screenshot.title,description:screenshot.description,imageUrl:url,options:options,data:canvasToDataURL,service:service},
 				complete:
 				function (a,b,c) {
 						if(cancel) {$('#topText').html('Canceled!');$('#save').add('#toGoogleDrive').add('#print').attr('disabled',null); return;}
@@ -2165,14 +2161,6 @@ function addBorderToDiv(e){
 }
 
 
-
-
-
-
-
-
-
-
 $(function(){
 	var plugins_to_show=defaultPlugins.slice();
 	plugins_to_show.push({
@@ -2188,7 +2176,7 @@ $(function(){
 		url:'reddit.com/submit?url=?%s',
 		dataType:'image'
 	});
-	staticPlugin=new Toolbar({
+	staticPlugin = new Toolbar({
 		'plugins':plugins_to_show,
 		'element': document.getElementById('toolbarContainer'),
 		'namespace':'editor',
@@ -2213,12 +2201,17 @@ $(function(){
 			callback();
 		}
   });
+	//invoked function after share  
+	$('.share').on('click',function (e){
+		var x=staticPlugin.getPluginByKey('userstory')
+		editor.createLastCanvas('toolbar',function (data){
+			x.run(data, e);
+		});
+	});
 
 //invoked function after save button clicked
 	$('.save').on('click',function (e){
 		var x=staticPlugin.getPluginByKey('save');
-		console.log('entire object >>>>>>>>>',x);
-		console.log('inside savebutton click function >>>>>>>>>');
 		editor.createLastCanvas('toolbar',function (data){
 			x.run(data, e)
 		})
@@ -2234,12 +2227,6 @@ $(function(){
 
 	$('.save-to-thumbnail').on('click', createThumbnails);
 
-	$('.fbUpload').on('click',function (e){
-		var x=staticPlugin.getPluginByKey('framebench')
-		editor.createLastCanvas('toolbar',function (data){
-			x.run(data, e);
-		});
-	});
 
 	document.addEventListener("keydown", function(e) {
 		if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
@@ -2352,23 +2339,3 @@ $(function(){
 		$(document).trigger('resize')
 	},100)
 });
-
-$(function() {
-$('.icon').click(function() {
-
-        if (localStorage.showrat) return;
-        localStorage.showrat = true
-        window.setTimeout(function() {
-            $('.pleaseRate').remove();
-            $('<div class=pleaseRate style="font-size:40px;padding:10px;background-color:white;border:1px solid gray;border-radius:3px">UserStory?<hr><div style=font-size:22px;text-align:center>Please let us know!<br>We really appreciate your review and we thank you for taking the time.<br><br><button><a target=_blank href="https://chrome.google.com/webstore/detail/akgpcdalpfphjmfifkmfbpdmgdmeeaeo/reviews" style="padding:20px;font-size:20px;font-weight:bolder">Rate now</a>&nbsp;<button>No Thanks</button><br><a href="https://github.com/shaileshgoogler/extension">Fork on GitHub</a></div>')
-            .css({
-                top: '100px',
-                left: '15%',
-                'position': 'absolute'
-            }).hide().appendTo(document.body).slideDown();
-            $(document).off('.slideup').on('click.slideup', function() {
-                $('.pleaseRate').slideUp()
-            })
-        }, 3000)
-    })
-})

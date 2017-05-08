@@ -283,15 +283,15 @@ var screenshot = {
             //Copied to editor.html
 
 
-            // chrome.tabs.create({url: chrome.extension.getURL('editor.html') + '#last',"selected":true});
+            chrome.tabs.create({url: chrome.extension.getURL('editor.html') + '#last',"selected":true});
 
 
             //open page in current window
-            chrome.tabs.query({currentWindow: true, active: true}, function (tab) {
-              chrome.tabs.update(tab.id, {url: chrome.extension.getURL('editor.html') + '#last' },function(tab){
-                targetId=tab.id;
-              });
-            });
+            // chrome.tabs.query({currentWindow: true, active: true}, function (tab) {
+            //   chrome.tabs.update(tab.id, {url: chrome.extension.getURL('editor.html') + '#last' },function(tab){
+            //     targetId=tab.id;
+            //   });
+            // });
 
 
             delete screenshot.callback;
