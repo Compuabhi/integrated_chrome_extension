@@ -122,7 +122,8 @@ var sizes = {
                         
                         console.log('emailId',cookie[0].value);
                         formData.append('email', cookie[0].value);
-
+                        console.log('FormData',formData);
+                        
                         if (this.toolbar && imageData == this.toolbar.last_image_data) {
                             callback(this.toolbar.last_image_url);
 
