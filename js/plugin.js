@@ -82,11 +82,9 @@ var sizes = {
             run: function(inVar, event) {
                 if (this.toolbar) {
                     var thisKey = this.toolbar.namespace + '_' + this.key + '_run'
-                    console.log('thisKey >>>>>>>>>',thisKey);
                     if (!extStorageGet(thisKey)) extStorageSet(thisKey, 0);
                     extStorageSet(thisKey, parseInt(extStorageGet(thisKey), 10) + 1)
                 }
-                console.log('inside x.run  function >>>>>>>>>');
                 for (var key in sb) {
                     this[key] = sb[key]
                 }
@@ -97,7 +95,7 @@ var sizes = {
                 data.page_url = (this.toolbar && this.toolbar.page_url) || location.toString();
 
                 // if(data.toolbar.closeOnClick) data.toolbar.element.html('')
-                console.log('this data >>>>>>>>>',data);
+                
 
                 if (this.isDataType('text')) {
                     data.text = inVar
@@ -107,10 +105,25 @@ var sizes = {
                     else if (this.url)
                         this.createTabWithParams(this.url, inVar, data)
                 } else if (this.isDataType('image')) { //It's Image
-                    console.log('inside start image data type   function >>>>>>>>>');
                     // data.image_url is not called
-                    data.image_url = function(callback) {
-                        var imageData = this.image_data();
+                        data.image_url = function(callback) {
+                        var imageData = this.image_data;     
+                        var base64Data = this.image_base64();
+                        var blobData = this.base64toBlob(base64Data);
+                        var file = new File([blobData], 'Screenshot-' + (new Date).toISOString().replace(/:|\./g, '-') + '.png', {
+                            type: 'image/png'
+                        });
+
+                        var formData = new FormData();
+                        formData.append('image-filename', file.name);
+                        formData.append('image-file', file);
+
+                        chrome.cookies.getAll({'domain': 'userstory.io', 'name': 'emailUserStory'}, function(cookie) {
+                        
+                        console.log('emailId',cookie[0].value);
+                        formData.append('email', cookie[0].value);
+
+                        console.log('FormData',formData);
                         if (this.toolbar && imageData == this.toolbar.last_image_data) {
                             callback(this.toolbar.last_image_url);
 
@@ -121,19 +134,11 @@ var sizes = {
                         // console.log(mm = data)
                         // console.log(extStorageGet('options'))
                         $.ajax({
-                            url: 'http://www.userstory.in/',
-
+                            url: 'http://userstory.io/uploadimage/',
                             type: 'post',
-                            data: {
-                                type: 'png',
-                                title: data.page_title,
-                                description: data.page_description,
-                                imageUrl: data.page_url,
-                                options: extStorageGet('options'),
-                                data: imageData
-                            }
+                            data: formData,
+                            processData:false
                         }).done(function(a, b, c) {
-                          console.log('inside ajax response call function >>>>>>>>>');
                             var response = a.replace(/^\s+|\s+$/g, "");
                             if (/"/.test(response) || />/.test(response) || /</.test(response) || /'/.test(response) || response.indexOf("http:") != 0) {
                                 alert('error in upload')
@@ -147,7 +152,9 @@ var sizes = {
                                 callback(imageURL);
                             }
                         })
-                    };
+                    });
+                      
+                };
                     //data.image_url is not called
                     data.image_base64 = function(callback) {
                         var toData = this.image_data()
@@ -155,6 +162,35 @@ var sizes = {
                         if (callback) callback(ans);
                         return ans;
                     };
+
+                    data.blobToFile = function (theBlob){
+                        //A Blob() is almost a File() - it's just missing the two properties below which we will add
+                        theBlob.lastModifiedDate = new Date();
+                        theBlob.name = "screenshot.png";
+                        return theBlob;
+                    }
+
+                    data.base64toBlob = function (base64Data, contentType) {
+                        contentType = contentType || 'image/png';
+                        var sliceSize = 1024;
+                        var byteCharacters = atob(base64Data);
+                        var bytesLength = byteCharacters.length;
+                        var slicesCount = Math.ceil(bytesLength / sliceSize);
+                        var byteArrays = new Array(slicesCount);
+
+                        for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+                            var begin = sliceIndex * sliceSize;
+                            var end = Math.min(begin + sliceSize, bytesLength);
+
+                            var bytes = new Array(end - begin);
+                            for (var offset = begin, i = 0 ; offset < end; ++i, ++offset) {
+                                bytes[i] = byteCharacters[offset].charCodeAt(0);
+                            }
+                            byteArrays[sliceIndex] = new Uint8Array(bytes);
+                        }
+                        return new Blob(byteArrays, { type: contentType });
+                    }
+
 
                     var dataURItoBlob = function (dataURI) {
                         var binary = atob(dataURI);
@@ -210,13 +246,9 @@ var sizes = {
                       //if true for save local
                         if (this.dataType == 'image')
                             data.dataType = 'image';
-                        console.log("before click save >>>>>>>");
                         this.onclick(data);
-                        console.log("after click save >>>>>>>");
-
                     }
                 } else { //no DataType
-                  console.log('else >>>>>>>>>');
                     if (this.onclick) {
                         this.onclick(data);
                     }
@@ -407,7 +439,7 @@ loadjQueryThings = function() {
                 };
                 return x
             }
-            // settings.xhr().upload.onprogress=function () {console.log('ar',arguments)}	;
+            // settings.xhr().upload.onprogress=function () {console.log('ar',arguments)}   ;
             xhr.fail(function() {
                 $('[name=status]', html).html('Cannot upload. Try again later');
             })
@@ -567,7 +599,7 @@ function Toolbar(options) {
 
             $toolbar.append(html)
             if (Math.round(count / this.toolbar.lines + 1) == index)
-            // 	// $toolbar.append('<br>')
+            //  // $toolbar.append('<br>')
                 html.css('clear', 'both')
         })
         //Enlarge Button
@@ -691,7 +723,7 @@ function Toolbar(options) {
     }
     this.getPluginByKey = function(key) {
         // return _.find(toolbar.obj_plugins, function(obj) {
-        // 	return obj.key == key
+        //  return obj.key == key
         // })
         if (this.obj_plugins[key]) return this.obj_plugins[key]
     }
