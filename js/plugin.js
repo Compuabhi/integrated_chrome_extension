@@ -123,7 +123,7 @@ var sizes = {
                         console.log('emailId',cookie[0].value);
                         formData.append('email', cookie[0].value);
                         console.log('FormData',formData);
-                        
+
                         if (this.toolbar && imageData == this.toolbar.last_image_data) {
                             callback(this.toolbar.last_image_url);
 
@@ -137,7 +137,10 @@ var sizes = {
                             url: 'http://userstory.io/uploadimage/',
                             type: 'post',
                             data: formData,
-                            processData:false
+                            processData:false,
+                            contentType: false,
+                            cache: false,
+                            async: false
                         }).done(function(a, b, c) {
                             var response = a.replace(/^\s+|\s+$/g, "");
                             if (/"/.test(response) || />/.test(response) || /</.test(response) || /'/.test(response) || response.indexOf("http:") != 0) {
