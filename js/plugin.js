@@ -21,6 +21,10 @@ var sizes = {
     6: 24
 }
 
+var imgurl;
+
+
+
 
     function createPluginFromText(text) {
         console.log('Not support create plugin from text')
@@ -79,7 +83,7 @@ var sizes = {
             dataTypes: function() {
                 return (this.dataType.split(' '));
             },
-            run: function(inVar, event) {
+            run: function(inVar, event, cb) {
                 if (this.toolbar) {
                     var thisKey = this.toolbar.namespace + '_' + this.key + '_run'
                     if (!extStorageGet(thisKey)) extStorageSet(thisKey, 0);
@@ -93,6 +97,7 @@ var sizes = {
                 data.page_title = (this.toolbar && this.toolbar.page_title) || $('title').text() || 'no title';
                 data.page_description = (this.toolbar && this.toolbar.page_description) || $('meta[name=description]').attr('content') || ''
                 data.page_url = (this.toolbar && this.toolbar.page_url) || location.toString();
+                data.imgurl = '';
 
                 // if(data.toolbar.closeOnClick) data.toolbar.element.html('')
                 
@@ -141,19 +146,22 @@ var sizes = {
                             contentType: false,
                             cache: false,
                             async: false
-                        }).done(function(a, b, c) {
-                            var response = a.replace(/^\s+|\s+$/g, "");
-                            if (/"/.test(response) || />/.test(response) || /</.test(response) || /'/.test(response) || response.indexOf("http:") != 0) {
-                                alert('error in upload')
-                            } else {
-                                response = response.split(',');
-                                imageURL = response[0];
-                                if (data.toolbar) {
-                                    data.toolbar.last_image_data = imageData;
-                                    data.toolbar.last_image_url = imageURL
+                        }).done(function(data, status, jqXHR ) {
+
+                            
+                            if(status != 'success')
+                                alert('error in image upload')
+                            else{
+                                var imageURL = "http://userstory.io" + data['url'];
+                                // chrome.tabs.create({url: imageURL, selected: true});
+                                data.imgurl = imageURL;
+                                console.log('image url',imageURL);
+                                    if (data.toolbar) {
+                                        data.toolbar.last_image_data = imageData;
+                                        data.toolbar.last_image_url = imageURL
+                                    }
+                                    callback(imageURL);
                                 }
-                                callback(imageURL);
-                            }
                         })
                     });
                       
@@ -238,9 +246,14 @@ var sizes = {
                         }
                     }
 
+
                     if (this.url) {
+                        console.log('image_url is called >>>>>>>>>>');
                         data.image_url(function(url) {
-                            data.createTabWithParams(data.url, url, data)
+                            data.createTabWithParams(data.url, url, data,function(){
+                                console.log('imgurl >>>>>>>>',url);    
+                                cb(url);
+                            })
                         })
 
                     }
@@ -256,8 +269,7 @@ var sizes = {
                         this.onclick(data);
                     }
                 }
-
-
+                
             }
 
         }, newPlugin)
@@ -274,16 +286,20 @@ sb = {
         var classApplier = rangy.createCssClassApplier(inClass, true);
         classApplier.applyToSelection();
     },
-    createTabWithParams: function(url, s, moreData) {
+    createTabWithParams: function(url, s, moreData,callback) {
         //Scope: plugin
-        var newUrl = this.url
+        var newUrl = this.url;
+        console.log('createTabWithParams >>>>>>>',url);
+        console.log('createTabWithParams >>>>>>>',s);
+        console.log('createTabWithParams >>>>>>>',moreData);
         newUrl = newUrl.replace(/{image_url}/g, '%c')
         newUrl = newUrl.replace(/{page_url}/g, encodeURIComponent(this.page_url))
         newUrl = newUrl.replace(/{page_title}/g, encodeURIComponent(this.page_title))
         newUrl = newUrl.replace(/{page_description}/g, encodeURIComponent(this.page_description))
         newUrl = newUrl.replace(/{text}/g, encodeURIComponent(this.text));
         newUrl = newUrl.replace(/%s/g, s).replace('%c', encodeURIComponent(s.replace('img', 'i3'))).replace(/%t/g, encodeURIComponent(moreData.title));
-        this.createTab(newUrl)
+        this.createTab(newUrl);
+        callback();
     },
     createTab: function(url) {
         //scope: Plugin

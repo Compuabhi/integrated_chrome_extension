@@ -5,17 +5,59 @@ body {
 }
 a {
     cursor:pointer;
+    text-decoration: none;
+    color: #fefefe;
 }
 
-@media (max-width: 1600px) {
+input[type=text] {
+    width: 100%;
+    /*padding: 5px 5px;*/
+    margin: 0;
+    height: 25px;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid red;
+}
+
+.title input[type=text] {
+    border-bottom: 2px solid red;
+}
+
+.copyurl input[type=text] {
+    border: 2px solid red;
+    width: 50%;
+    display: inline-block;
+}
+.copyurl button {
+	height: 25px;
+    position: static;
+    width: 20%;
+    display: inline-block;
+    background-color: #44c767;
+    -moz-border-radius: 28px;
+    -webkit-border-radius: 28px;
+    border-radius: 5px;
+    border: 1px solid #18ab29;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 12px;
+    padding: 2px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2f6627;
+}
+
+
+
+/*@media (max-width: 1600px) {
 	.editor-toolbar button.save,
 	.editor-toolbar button.view {
 		text-indent: -9999px;
 		font-size: 0;
 		margin-right: 0!important;
 	}
-}
-@media (max-width: 1410px) {
+}*/
+/*@media (max-width: 1410px) {
 	.buttons .url-share {
 		width: 140px !important;
 		background-position-x: 115px!important;
@@ -23,9 +65,10 @@ a {
 	.editor-toolbar {
 		padding-right: 0!important;
 		padding-left: 0!important;
+		height: 25px;
 	}
-}
-@media (max-width: 1300px) {
+}*/
+/*@media (max-width: 1300px) {
 	.editor-toolbar .donation span {
 		text-indent: -9999px;
 		padding: 0 16px!important;
@@ -39,17 +82,19 @@ a {
 	.editor-toolbar button.save .icon {
 		margin-right: 0!important;
 	}
-}
+}*/
 @media (max-width: 1100px) {
 	.buttons {
 		margin-left: 0!important;
 	}
-	.editor-toolbar .tools {
+	/*.editor-toolbar .tools {
 		margin-left: 2px!important;
+	}*/
+	.editor-toolbar .tools button{
+		width: 25px!important;
 	}
-	.editor-toolbar .tools button,
 	.editor-toolbar .tools button span {
-		width: 20px!important;
+		width: 15px!important;
 	}
 }
 @media (max-width: 1000px) {
@@ -288,27 +333,28 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	padding-left: 16px;
 }
 #page-editor {
-    background: #eaeaea;
+    background: #fefefe;
 	  min-width: 930px;
 }
 #header {
-    position: fixed;
+    position: static;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100;
+    /*z-index: 100;*/
     width: 100%;
+    height: 25px;
 }
 #screenshot-area {
     position: fixed;
     left: 0;
     right: 0;
-	-webkit-touch-callout: none;
+	/*-webkit-touch-callout: none;
 	-webkit-user-select: none;
-	user-select: none;
+	user-select: none;*/
 }
 #divCanvasData {
-    position: absolute;
+    position: fixed;
     border:1px solid #ccc;
     background: #fff url('../images/editor-background.png') repeat;
     overflow: auto;
@@ -316,71 +362,63 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 #footer  {
     position: fixed;
-		bottom: 15px;
-		margin-bottom: -15px;
-		border:1px;
-		height: 20px;
-		width:100%;
-		background: #777;
+	bottom: 25px;
+	margin-bottom: -25px;
+	height: 25px;
+	width:100%;
+	background: #3e3e3e;
 }
 
-.footerToolbar {
+.editor-toolbar {
     position: relative;
-		margin: 2px 0px 0px 4px;
-		background: #777;
-		width:100%;
-		height: 15px;
+	background: #e48f0a;
+	height: 25px;
+    width: 100%;
+    table-layout: fixed;
 }
 
-.footerToolbar .rightFooter {
-    position: relative;
-		float: right;
-		height:15px;
+.editor-toolbar .buttons {   
+	position: absolute;
+	bottom: 0;
+	height: 25px;
+	width: 20%;
+	right: 0;	
 }
 
-.footerToolbar .leftFooter,.footerToolbar .leftFooter h2 {
-    position: relative;
-		float: left;
-		height: 15px;
+.editor-toolbar .leftFooter  {
+	 position: relative;
+	 float: left;
+	 height: 25px;
+	 width: 20%;
+	 vertical-align: middle;
 }
 
-.footerToolbar .leftFooter h2 {
- color:#FFFFFF;
+.editor-toolbar .leftFooter  h2{	
+    color: #fefefe;
+    text-align: left;
+    margin: 0 5px;
 }
 
-.footerToolbar .leftFooter button {
-    position: relative;
-		float: left;
-		width: 30px;
-		height: 20px;
+.editor-toolbar .buttons button {
+	position: relative;
+	float: right;
+	width: 25px;
+	height: 25px;
+    margin: 0;
+    border: none;
+    padding: 5px 5px;
+    background: #E48F0B;
 }
 
-.footerToolbar .rightFooter button{
-	float: left;
-	margin-left: 4px;
-	background: #777;
-	border: none;
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 12px;
-	font-weight: 700;
-	box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-	text-shadow: 0 1px 0 rgba(0,0,0,0.1);
-	padding: 0 5px;
-	height: 20px;
-	line-height: 22px;
-	border-radius: 3px;
-	cursor: pointer;
-	font-family: 'Open Sans', sans-serif;
-}
+.editor-toolbar .buttons button span {
 
-.footerToolbar .rightFooter button span {
-	display: inline-block;
-	width: 20px;
+	left: 0;
+	display: block;
 	height: 15px;
+	padding: 0;
+	width: 15px;
 	background-position: center;
 	background-repeat: no-repeat;
-	float: right;
 }
 
 #divCanvasData .myClose {
@@ -418,103 +456,58 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     border-radius: 3px;
     cursor: pointer;
 }
-.editor-toolbar .logo {
+/*.editor-toolbar .logo {
 	float: left;
 	margin-right: 15px;
-}
-.editor-toolbar .donation-bar {
-    position: relative;
-    float: left;
-    margin: 13px 10px 0 0;
-}
-.editor-toolbar .donation-drop {
-    position: absolute;
-    right: -55px;
-    top: 41px;
-    background: #fff;
-    box-shadow: 0 2px 2px rgba(0,0,0,0.15);
-    border: 1px #aaaaab solid;
-    border-radius: 4px;
-    padding: 5px 0;
-    width: 150px;
-}
-.editor-toolbar .donation-drop a {
-    display: block;
-    width: 100%;
-    padding: 4px 8px;
-    text-decoration: none;
-    color: #333;
-    box-sizing: border-box;
-    font-size: 13px;
-}
-.editor-toolbar .donation-drop a:hover {
-    background: #f1f1f1;
-}
-.editor-toolbar .donation {
-	display: block;
-	background: #64be2d;
-	text-decoration: none;
-	color: #fff;
-	border-radius: 3px;
-	height: 32px;
-	line-height: 32px;
-	padding: 0 0 0 8px;
-	font-weight: bold;
-	font-size: 15px;
-	box-shadow: 0 1px 0 rgba(255,255,255,0.4);
-}
-.editor-toolbar .donation:hover {
-	background: #57a825;
-}
-.editor-toolbar .donation span {
-	display: block;
-	background: url(../images/cards.png) no-repeat left;
-	padding: 0 20px 0 40px;
-}
+}*/
+
+
+
 .editor-toolbar .tools {
-	float: left;
-	margin: 10px 3 5 3px;
-	height: 15px;
-	border: 1px #dbdbdb solid;
-	border-radius: 3px;
-	box-shadow: 0 1px 0 rgba(255,255,255,0.4);
-	background: #ffffff;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #ededed));
-	background: -webkit-linear-gradient(top, #ffffff 0%, #ededed 100%);
-	background: linear-gradient(to bottom, #ffffff 0%, #ededed 100%);
+	
+	height: 25px !important;
+  	margin: 0px 10px 0px auto;
+  	display: table;
+  	width: 60%;
+  	line-height: 0;
 }
+
+#header .copyurl {
+	position: absolute;
+    width: 50%;
+    float: left;
+    top: 0;
+    right: 0;
+    height: inherit;
+}
+
+#header .title {
+	width: 30%;
+}
+/*.editor-toolbar .colortool {
+	float: left;
+	height: 25px;
+	width: 20%;
+	display: table-cell;
+}*/
+
 .editor-toolbar .tools button {
 	display: block;
 	float: left;
-	height: 12px;
-	width: 20px;
-	padding: 0;
+	height: 25px;
+	width: 25px;
+	padding: 5px 5px;
 	margin: 0;
 	position: relative;
 	border: none;
-	border-right: 1px #dbdbdb solid;
+	/*border-right: 1px #dbdbdb solid;*/
 	background: none;
 	cursor: pointer;
 }
-.editor-toolbar .tools button.last {
-	border-right: none;
-}
-.editor-toolbar .tools button.disable {
-    background: rgba(0,0,0,0.05)!important;
-    cursor: not-allowed;
-}
-.editor-toolbar .tools button.on {
-    background: rgba(0,0,0,0.1);
-}
-.editor-toolbar .tools button:hover {
-	background: rgba(0,0,0,0.05);
-}
-.editor-toolbar .tools button:active {
-	background: rgba(0,0,0,0.1);
-}
+
 .editor-toolbar .tools button span {
-	position: absolute;
-	top: 0;
+	position: static;
+	bottom: 0;
 	left: 0;
 	display: block;
 	height: 15px;
@@ -616,7 +609,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .buttons {
 	float: right;
 	position: relative;
-	margin: 8px 4 0 10px;
+	/*margin: 8px 4 0 10px;*/
 }
 .buttons .label {
 	margin: 0 4px 0 0;
@@ -626,32 +619,43 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	line-height: 32px;
 }
 .buttons button {
+
+	display: block;
 	float: left;
-	margin-left: 4px;
-	background: #2a84ff;
+	height: 25px;
+	width: 25px;
+	padding: 0 ;
+	margin: 0;
+	position: relative;
 	border: none;
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 12px;
-	font-weight: 700;
-	box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-	text-shadow: 0 1px 0 rgba(0,0,0,0.1);
-	padding: 0 5px;
-	height: 20px;
-	line-height: 22px;
-	border-radius: 3px;
+	/*border-right: 1px #dbdbdb solid;*/
+	background: none;
 	cursor: pointer;
-	font-family: 'Open Sans', sans-serif;
+
+
+	/*margin-left: 4px;*/
+	/*background: #2a84ff;*/
+	/*color: #fff;*/
+	/*text-transform: uppercase;*/
+	/*font-size: 12px;*/
+	/*font-weight: 700;*/
+	/*box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+	text-shadow: 0 1px 0 rgba(0,0,0,0.1);*/
+	/*padding: 5px 3px;*/
+	/*line-height: 22px;*/
+	/*border-radius: 3px;*/
+	/*padding: 5px 3px 5px;*/
+	/*font-family: 'Open Sans', sans-serif;*/
 }
-.buttons button:hover {
+/*.buttons button:hover {
 	background: #2674df;
-}
-.buttons button.more-plugins {
+}*/
+/*.buttons button.more-plugins {
 	background: #a8a8a8;
-}
-.buttons button.more-plugins:hover {
+}*/
+/*.buttons button.more-plugins:hover {
 	background: #a2a2a2;
-}
+}*/
 .buttons .url-share {
     float: left;
     height: 32px;
@@ -696,8 +700,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 .buttons button span {
 	display: inline-block;
-	width: 20px;
+	width: 15px;
 	height: 15px;
+	padding: 5px 5px;
 	background-position: center;
 	background-repeat: no-repeat;
 	float: left;
@@ -710,12 +715,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 .buttons button.save .icon {
 	background-image: url(../images/save.png);
-	margin-right: 5px;
-}
+}		
 .buttons button.share .icon {
 	background-image: url(../images/share.png);
-	margin-right: 5px;
-	background-size:cover;
 }
 .buttons button.view .icon {
 	background-image: url(../images/eye.png);
@@ -740,7 +742,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	background-image: url(../images/print.png);
 }
 
-.footerToolbar .rightFooter button.download .icon {
+
+.footerToolbar .rightFooter button.save .icon {
 	background-image: url(../images/save.png);
 }
 

@@ -29,7 +29,7 @@
 /*** palette button ***/
 ._wColorPicker_buttonHolder{display:inline-block; cursor:pointer;}
 ._wColorPicker_buttonBorder{}
-._wColorPicker_buttonColor{margin:2px; border-radius:4px;}
+._wColorPicker_buttonColor{margin:5px; border-radius:4px;}
 ._wColorPicker_paletteHolder{z-index:999999;}
 
 /*** colors ***/

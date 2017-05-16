@@ -142,7 +142,7 @@ function editor_obj()
 		{
 		$canvas=$('<canvas class=tool style=position:relative></canvas>').appendTo($('#clipper')); //.data('clip-x1', clip.rx1).data('clip-y1', clip.ry1);
 		if(true || addimg){
-			var newImg= $('<img>').appendTo('#clipper')
+			var newImg= $('<img>').appendTo('#clipper') 
 			$canvas.data('img',newImg );
 		}
 
@@ -334,11 +334,11 @@ function editor_obj()
 		{
 
 		$("#wColorPicker2_3").wColorPicker({
-			theme: "green",
+			theme: "blue",
 			mode: "hover",
 			showSpeed: 300,
 			hideSpeed: 300,
-			buttonSize: 15,
+			buttonSize: 26,
 			initColor:localStorage['color'] || '#FF0000',
 			onSelect:function (a) {
 				localStorage['color']=a;
@@ -814,7 +814,7 @@ function editor_obj()
 
 			pix[thisPoint]=parseInt(inX.data.color.slice(4,-1).split(',')[0]);
 			pix[thisPoint+1]=parseInt(inX.data.color.slice(4,-1).split(',')[1]);
-			pix[thisPoint+2]=parseInt(inX.data.color.slice(4,-1).split(',')[2]);
+			pix[thisPoint+2]=parseInt(inX.data.color.slice(4,-1).split(',')[2]);	
 	}
 		var id=inX.ctx.getImageData(0,0,inX.canvas.width,inX.canvas.height);
 		var pix=id.data;
@@ -955,7 +955,7 @@ function editor_obj()
 				context.shadowOffsetY = 0;
 				context.shadowBlur = 0;
 				updateImgFromCanvas();
-				};
+				};		
 	//line
 	tool.line.begin=function (e)
 		{
@@ -1036,7 +1036,7 @@ function editor_obj()
 		{
 		currentLevel.end={x:e.x,y:e.y};
 		canvas.height=canvas.height+1;
-		canvas.height=canvas.height-1;
+		canvas.height=canvas.height-1;		
 		enlargeCanvas(canvas,currentLevel.start.x,currentLevel.start.y,currentLevel.end.x,currentLevel.end.y);
 
 		tool[tool.current].draw({canvas:canvas,ctx:c,data:currentLevel});
@@ -1108,7 +1108,7 @@ function editor_obj()
 		currentLevel.start={x:e.x+15,	y:e.y+15};
 		currentLevel.end={x:e.x+baseRectDim,	y:e.y+baseRectDim};
 		tool.rectangle.move({x:e.x+baseRectDim,y:e.y+baseRectDim});
-
+		
 		};
 	tool.rectangle.move=function(e)
 		{
@@ -1166,7 +1166,7 @@ function editor_obj()
 
 		};
 
-	function updateImgFromCanvas(){
+	function updateImgFromCanvas(){		
 		var $i=$(canvas).data('img');
 		var $t=$(canvas);
 		$i.css({
@@ -1411,6 +1411,7 @@ function editor_obj()
 			canvasWidth=clip.rx2-clip.rx1;
 			canvasHeight=clip.ry2-clip.ry1;
 			$('#clipper').css({'height':clip.ry2-clip.ry1,'overflow':'hidden','width':clip.rx2-clip.rx1,'position':'absolute'})
+			//
 			if(firstImage){
 			$('#canvasId').attr('height',clip.ry2-clip.ry1);
 			$('#canvasId')[0].getContext('2d').drawImage(firstImage,0,0);
@@ -1441,8 +1442,6 @@ function editor_obj()
 
 		$('#header').add('#fotter').width(maxWidth);
 
-
-		//divCanvasData is defined
 		divCanvasData=$('#divCanvasData');
     var height = canvasHeight;
     if (height > maxHeight) {
@@ -1455,8 +1454,8 @@ function editor_obj()
 					height:height,
 					'overflow-x' : canvasWidth+16<maxWidth ?'hidden' : 'auto',
 					'overflow-Y' : canvasHeight<maxHeight ?'hidden' : 'auto',
-          'top': '20px',
-					'bottom':'20px'
+          'top': '50%',
+          'margin-top': ($('#header').height()/2 - height/2) + 'px'
 				});
 		scrollBarHeight= canvasWidth<maxWidth ? 0 : 16;
 		scrollBarWidth= canvasHeight<maxHeight  ? 0 : 16;
@@ -1650,7 +1649,7 @@ if (tool.current)
 			var options= localStorage['options'];
 
 			//canvasToDataURL; //.replace(/^data:image\/(png|jpg);base64,/, "")
-			hr=$.ajax({url:'https://www.userstory.com/upload3.asp',type:'post',data:{type:localStorage['pngjpg'],title:screenshot.title,description:screenshot.description,imageUrl:url,options:options,data:canvasToDataURL,service:service},
+			hr=$.ajax({url:'https://www.openscreenshot.com/upload3.asp',type:'post',data:{type:localStorage['pngjpg'],title:screenshot.title,description:screenshot.description,imageUrl:url,options:options,data:canvasToDataURL,service:service},
 				complete:
 				function (a,b,c) {
 						if(cancel) {$('#topText').html('Canceled!');$('#save').add('#toGoogleDrive').add('#print').attr('disabled',null); return;}
@@ -1944,7 +1943,7 @@ function gDrive(){
 			var meta = {
 			"title": screenshot.title,
 			"mimeType": "image/png",
-			"description": 'Taken by userstory'
+			"description": 'Taken by Open Screenshot. https://www.openscreenshot.com'
 			};
 			var bound = 287032396531387;
 
@@ -2110,7 +2109,7 @@ $.fn.sethover=function(x){
 
 var border =[];
 $(function(){
-	base='//localhost/www.userstory.in/'
+	base='//localhost/www.openscreenshot.com/docs/'
 	base='nd/';
 
 	border[1]={
@@ -2161,8 +2160,17 @@ function addBorderToDiv(e){
 }
 
 
+
+
+
+
+
+
+
+
 $(function(){
 	var plugins_to_show=defaultPlugins.slice();
+
 	plugins_to_show.push({
 		name:'FrameBench',
 		key:'framebench',
@@ -2176,7 +2184,7 @@ $(function(){
 		url:'reddit.com/submit?url=?%s',
 		dataType:'image'
 	});
-	staticPlugin = new Toolbar({
+	staticPlugin=new Toolbar({
 		'plugins':plugins_to_show,
 		'element': document.getElementById('toolbarContainer'),
 		'namespace':'editor',
@@ -2201,23 +2209,30 @@ $(function(){
 			callback();
 		}
   });
-	//invoked function after share  
-	$('.share').on('click',function (e){
+
+	$('.saveimage').on('click',function (e){
 		var x=staticPlugin.getPluginByKey('userstory')
 		editor.createLastCanvas('toolbar',function (data){
-			x.run(data, e);
+			x.run(data, e,function(imageURL){
+			document.getElementById("imageurl").value = imageURL;
+			});
 		});
 	});
-
-//invoked function after save button clicked
+	
 	$('.save').on('click',function (e){
-		var x=staticPlugin.getPluginByKey('save');
+		var x=staticPlugin.getPluginByKey('save')
 		editor.createLastCanvas('toolbar',function (data){
 			x.run(data, e)
 		})
 	});
 
-  // Not required
+	$('.save-to-printer').on('click',function (e){
+		var x=staticPlugin.getPluginByKey('print')
+		editor.createLastCanvas('toolbar',function (data){
+			x.run(data, e)
+		})
+	});
+
 	$('.save-to-clipboard').on('click',function (e){
 		var x=staticPlugin.getPluginByKey('copy');
 		editor.createLastCanvas('toolbar', function (data){
@@ -2227,6 +2242,12 @@ $(function(){
 
 	$('.save-to-thumbnail').on('click', createThumbnails);
 
+	$('.fbUpload').on('click',function (e){
+		var x=staticPlugin.getPluginByKey('framebench')
+		editor.createLastCanvas('toolbar',function (data){
+			x.run(data, e);
+		});
+	});
 
 	document.addEventListener("keydown", function(e) {
 		if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
@@ -2289,7 +2310,7 @@ if (location.hash == "#paste") {
       })
     }
   })(jQuery);
-
+  
   $(function () {
     $('<center class=paste_modal style="position:absolute;top:150px;width:100%"><br><span style="padding:20px;font-size:40px;border:1px solid black">Press Ctrl+V to paste an image</span></center>').appendTo(document.body);
     $("html").pasteImageReader(function (e, t, n) {
@@ -2339,3 +2360,23 @@ $(function(){
 		$(document).trigger('resize')
 	},100)
 });
+
+$(function() {
+$('.icon').click(function() {
+
+        if (localStorage.showrat) return;
+        localStorage.showrat = true
+        window.setTimeout(function() {
+            $('.pleaseRate').remove();
+            $('<div class=pleaseRate style="font-size:40px;padding:10px;background-color:white;border:1px solid gray;border-radius:3px">Do you like Open Screenshot?<hr><div style=font-size:22px;text-align:center>Please rate us!<br>We really appreciate your 5-star review and we thank you for taking the time.<br><br><button><a target=_blank href="https://chrome.google.com/webstore/detail/akgpcdalpfphjmfifkmfbpdmgdmeeaeo/reviews" style="padding:20px;font-size:20px;font-weight:bolder">Rate now</a>&nbsp;<button>No Thanks</button><br><a href="https://github.com/AminaG/openscreenshot">Fork on GitHub</a></div>')
+            .css({
+                top: '100px',
+                left: '15%',
+                'position': 'absolute'
+            }).hide().appendTo(document.body).slideDown();
+            $(document).off('.slideup').on('click.slideup', function() {
+                $('.pleaseRate').slideUp()
+            })
+        }, 3000)
+    })
+})
