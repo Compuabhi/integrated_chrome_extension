@@ -4,23 +4,23 @@
 function objects_hide(){
 	if (window.loadjQuery) loadjQuery();
 	$('embed,object').each(function (){
-	var $t=$(this)
-	var current= $t.attr('isVisible')
-	if (!current){
-	  $t.attr('isVisible', $t.css('visiblity')=='hidden' ? 'no' : 'yes'  )
-	  $t.css('visibility','hidden')
-	}
+		var $t=$(this)
+		var current= $t.attr('isVisible')
+		if (!current){
+			$t.attr('isVisible', $t.css('visiblity')=='hidden' ? 'no' : 'yes'  )
+			$t.css('visibility','hidden')
+		}
 	})
 }
 function objects_show(){
 	if (window.loadjQuery) loadjQuery();
 	$('embed,object').each(function (){
-	var $t=$(this)
-	var current= $t.attr('isVisible')
-	if(current){
-	$t.css('visibility',current =='yes' ? 'visible' : 'hidden'  )
-	$t.attr('isVisible',null)
-	}
+		var $t=$(this)
+		var current= $t.attr('isVisible')
+		if(current){
+			$t.css('visibility',current =='yes' ? 'visible' : 'hidden'  )
+			$t.attr('isVisible',null)
+		}
 	})
 }
 
@@ -33,9 +33,9 @@ function Dialog(inX) {
 	instance.options=$.extend(
 		{closeOnClick:true},
 		instance.options
-	)
+		)
 	if (!window.iframeZindex) iframeZindex = 100000
-	iframeZindex++
+		iframeZindex++
 	this.iframe = document.createElement('iframe')
 	var iframe = this.iframe
 	this.iframe.style.display = 'none'
@@ -79,16 +79,16 @@ function Dialog(inX) {
 		instance.close();
 		if	(callback && $.isFunction(callback)) callback()
 	}
-	var closeOnEsc = function(e) {
-		if (e.keyCode == 27)
-			askToClose()
+var closeOnEsc = function(e) {
+	if (e.keyCode == 27)
+		askToClose()
 		// document.removeEventListener('keyup', closeOnEsc);
 	}
 
 	if(instance.options.closeOnClick)
-	window.setTimeout(function (){
-		$(document).on('click',askToClose)
-	}, 0);
+		window.setTimeout(function (){
+			$(document).on('click',askToClose)
+		}, 0);
 
 	document.addEventListener('keyup', closeOnEsc)
 	this.iframe.contentDocument.addEventListener('keyup', closeOnEsc);
@@ -159,7 +159,7 @@ function Dialog(inX) {
 	};
 	this.close = function() {
 		if (this.timeOut) window.clearTimeout(this.timeOut)
-		if (instance.options.onClose) instance.options.onClose();
+			if (instance.options.onClose) instance.options.onClose();
 		$(document).off('keyup',closeOnEsc);
 		$(document).off('click',askToClose);
 		$(iframe).remove();
@@ -187,56 +187,56 @@ function XmlRpc() {
  * XML-RPC document prolog.
  * </p>
  */
-XmlRpc.PROLOG = "<?xml version=\"1.0\"?>\n";
+ XmlRpc.PROLOG = "<?xml version=\"1.0\"?>\n";
 
 /**
  * <p>
  * XML-RPC methodCall node template.
  * </p>
  */
-XmlRpc.REQUEST = "<methodCall>\n<methodName>${METHOD}</methodName>\n<params>\n${DATA}</params>\n</methodCall>";
+ XmlRpc.REQUEST = "<methodCall>\n<methodName>${METHOD}</methodName>\n<params>\n${DATA}</params>\n</methodCall>";
 
 /**
  * <p>
  * XML-RPC param node template.
  * </p>
  */
-XmlRpc.PARAM = "<param>\n<value>\n${DATA}</value>\n</param>\n";
+ XmlRpc.PARAM = "<param>\n<value>\n${DATA}</value>\n</param>\n";
 
 /**
  * <p>
  * XML-RPC array node template.
  * </p>
  */
-XmlRpc.ARRAY = "<array>\n<data>\n${DATA}</data>\n</array>\n";
+ XmlRpc.ARRAY = "<array>\n<data>\n${DATA}</data>\n</array>\n";
 
 /**
  * <p>
  * XML-RPC struct node template.
  * </p>
  */
-XmlRpc.STRUCT = "<struct>\n${DATA}</struct>\n";
+ XmlRpc.STRUCT = "<struct>\n${DATA}</struct>\n";
 
 /**
  * <p>
  * XML-RPC member node template.
  * </p>
  */
-XmlRpc.MEMBER = "<member>\n${DATA}</member>\n";
+ XmlRpc.MEMBER = "<member>\n${DATA}</member>\n";
 
 /**
  * <p>
  * XML-RPC name node template.
  * </p>
  */
-XmlRpc.NAME = "<name>${DATA}</name>\n";
+ XmlRpc.NAME = "<name>${DATA}</name>\n";
 
 /**
  * <p>
  * XML-RPC value node template.
  * </p>
  */
-XmlRpc.VALUE = "<value>\n${DATA}</value>\n";
+ XmlRpc.VALUE = "<value>\n${DATA}</value>\n";
 
 /**
  * <p>
@@ -244,7 +244,7 @@ XmlRpc.VALUE = "<value>\n${DATA}</value>\n";
  * dateTime.iso8601).
  * </p>
  */
-XmlRpc.SCALAR = "<${TYPE}>${DATA}</${TYPE}>\n";
+ XmlRpc.SCALAR = "<${TYPE}>${DATA}</${TYPE}>\n";
 
 /**
  * <p>
@@ -256,32 +256,32 @@ XmlRpc.SCALAR = "<${TYPE}>${DATA}</${TYPE}>\n";
  *            A JavaScript object.
  * @return <code>String</code> with XMLRPC object type.
  */
-XmlRpc.getDataTag = function(data) {
-	try {
+ XmlRpc.getDataTag = function(data) {
+ 	try {
 		// Vars
 		var tag = typeof data;
 
 		switch (tag.toLowerCase()) {
 			case "number":
-				tag = (Math.round(data) == data) ? "int" : "double";
-				break;
+			tag = (Math.round(data) == data) ? "int" : "double";
+			break;
 			case "object":
-				if (data.constructor == Base64) {
-					tag = "base64";
-				} else if (data.constructor == String) {
-					tag = "string";
-				} else if (data.constructor == Boolean) {
-					tag = "boolean";
-				} else if (data.constructor == Array) {
-					tag = "array";
-				} else if (data.constructor == Date) {
-					tag = "dateTime.iso8601";
-				} else if (data.constructor == Number) {
-					tag = (Math.round(data) == data) ? "int" : "double";
-				} else {
-					tag = "struct";
-				}
-				break;
+			if (data.constructor == Base64) {
+				tag = "base64";
+			} else if (data.constructor == String) {
+				tag = "string";
+			} else if (data.constructor == Boolean) {
+				tag = "boolean";
+			} else if (data.constructor == Array) {
+				tag = "array";
+			} else if (data.constructor == Date) {
+				tag = "dateTime.iso8601";
+			} else if (data.constructor == Number) {
+				tag = (Math.round(data) == data) ? "int" : "double";
+			} else {
+				tag = "struct";
+			}
+			break;
 		}
 		return tag;
 	} catch (e) {
@@ -295,28 +295,28 @@ XmlRpc.getTagData = function(tag) {
 
 	switch (tag) {
 		case "struct":
-			data = new Object();
-			break;
+		data = new Object();
+		break;
 		case "array":
-			data = new Array();
-			break;
+		data = new Array();
+		break;
 		case "datetime.iso8601":
-			data = new Date();
-			break;
+		data = new Date();
+		break;
 		case "boolean":
-			data = new Boolean();
-			break;
+		data = new Boolean();
+		break;
 		case "int":
 		case "i4":
 		case "double":
-			data = new Number();
-			break;
+		data = new Number();
+		break;
 		case "string":
-			data = new String();
-			break;
+		data = new String();
+		break;
 		case "base64":
-			data = new Base64();
-			break;
+		data = new Base64();
+		break;
 	}
 	return data;
 };
@@ -337,11 +337,11 @@ XmlRpcRequest.prototype.addParam = function(data) {
 
 	switch (type.toLowerCase()) {
 		case "function":
-			return;
+		return;
 		case "object":
-			if (!data.constructor.name) {
-				return;
-			}
+		if (!data.constructor.name) {
+			return;
+		}
 	}
 	this.params.push(data);
 };
@@ -362,8 +362,8 @@ XmlRpcRequest.prototype.send = function() {
 	// Vars
 	if (window.loadjQuery) loadjQuery();
 	var xml_params = "",
-		i = 0,
-		xml_call, xhr;
+	i = 0,
+	xml_call, xhr;
 	// XMLRPC
 	for (i = 0; i < this.params.length; i++) {
 		xml_params += XmlRpc.PARAM.replace("${DATA}", this.marshal(this.params[i]));
@@ -401,40 +401,40 @@ XmlRpcRequest.prototype.send = function() {
 XmlRpcRequest.prototype.marshal = function(data) {
 	// Vars
 	var type = XmlRpc.getDataTag(data),
-		scalar_type = XmlRpc.SCALAR.replace(/\$\{TYPE\}/g, type),
-		xml = "",
-		value, i, member;
+	scalar_type = XmlRpc.SCALAR.replace(/\$\{TYPE\}/g, type),
+	xml = "",
+	value, i, member;
 
 	switch (type) {
 		case "struct":
-			member = "";
-			for (i in data) {
-				value = "";
-				value += XmlRpc.NAME.replace("${DATA}", i);
-				value += XmlRpc.VALUE.replace("${DATA}", this.marshal(data[i]));
-				member += XmlRpc.MEMBER.replace("${DATA}", value);
-			}
-			xml = XmlRpc.STRUCT.replace("${DATA}", member);
-			break;
-		case "array":
+		member = "";
+		for (i in data) {
 			value = "";
-			for (i = 0; i < data.length; i++) {
-				value += XmlRpc.VALUE.replace("${DATA}", this.marshal(data[i]));
-			}
-			xml = XmlRpc.ARRAY.replace("${DATA}", value);
-			break;
+			value += XmlRpc.NAME.replace("${DATA}", i);
+			value += XmlRpc.VALUE.replace("${DATA}", this.marshal(data[i]));
+			member += XmlRpc.MEMBER.replace("${DATA}", value);
+		}
+		xml = XmlRpc.STRUCT.replace("${DATA}", member);
+		break;
+		case "array":
+		value = "";
+		for (i = 0; i < data.length; i++) {
+			value += XmlRpc.VALUE.replace("${DATA}", this.marshal(data[i]));
+		}
+		xml = XmlRpc.ARRAY.replace("${DATA}", value);
+		break;
 		case "dateTime.iso8601":
-			xml = scalar_type.replace("${DATA}", data.toIso8601());
-			break;
+		xml = scalar_type.replace("${DATA}", data.toIso8601());
+		break;
 		case "boolean":
-			xml = scalar_type.replace("${DATA}", (data == true) ? 1 : 0);
-			break;
+		xml = scalar_type.replace("${DATA}", (data == true) ? 1 : 0);
+		break;
 		case "base64":
-			xml = scalar_type.replace("${DATA}", data.encode());
-			break;
+		xml = scalar_type.replace("${DATA}", data.encode());
+		break;
 		default:
-			xml = scalar_type.replace("${DATA}", data);
-			break;
+		xml = scalar_type.replace("${DATA}", data);
+		break;
 	}
 	return xml;
 };
@@ -472,14 +472,14 @@ XmlRpcResponse.prototype.unmarshal = function(node, parent) {
 		tag = node.tagName.toLowerCase();
 		switch (tag) {
 			case "fault":
-				this.faultValue = true;
-				break;
+			this.faultValue = true;
+			break;
 			case "name":
-				this.currentIsName = true;
-				break;
+			this.currentIsName = true;
+			break;
 			default:
-				obj = XmlRpc.getTagData(tag);
-				break;
+			obj = XmlRpc.getTagData(tag);
+			break;
 		}
 		if (obj != null) {
 			this.params.push(obj);
@@ -487,11 +487,11 @@ XmlRpcResponse.prototype.unmarshal = function(node, parent) {
 				if (this.params.length > 1) {
 					switch (XmlRpc.getDataTag(this.params[parent])) {
 						case "struct":
-							this.params[parent][this.propertyName] = this.params[this.params.length - 1];
-							break;
+						this.params[parent][this.propertyName] = this.params[this.params.length - 1];
+						break;
 						case "array":
-							this.params[parent].push(this.params[this.params.length - 1]);
-							break;
+						this.params[parent].push(this.params[this.params.length - 1]);
+						break;
 					}
 				}
 				parent = this.params.length - 1;
@@ -509,30 +509,30 @@ XmlRpcResponse.prototype.unmarshal = function(node, parent) {
 		} else {
 			switch (XmlRpc.getDataTag(this.params[this.params.length - 1])) {
 				case "dateTime.iso8601":
-					this.params[this.params.length - 1] = Date.fromIso8601(node.nodeValue);
-					break;
+				this.params[this.params.length - 1] = Date.fromIso8601(node.nodeValue);
+				break;
 				case "boolean":
-					this.params[this.params.length - 1] = (node.nodeValue == "1") ? true : false;
-					break;
+				this.params[this.params.length - 1] = (node.nodeValue == "1") ? true : false;
+				break;
 				case "int":
 				case "double":
-					this.params[this.params.length - 1] = new Number(node.nodeValue);
-					break;
+				this.params[this.params.length - 1] = new Number(node.nodeValue);
+				break;
 				case "string":
-					this.params[this.params.length - 1] = new String(node.nodeValue);
-					break;
+				this.params[this.params.length - 1] = new String(node.nodeValue);
+				break;
 				case "base64":
-					this.params[this.params.length - 1] = new Base64(node.nodeValue);
-					break;
+				this.params[this.params.length - 1] = new Base64(node.nodeValue);
+				break;
 			}
 			if (this.params.length > 1) {
 				switch (XmlRpc.getDataTag(this.params[parent])) {
 					case "struct":
-						this.params[parent][this.propertyName] = this.params[this.params.length - 1];
-						break;
+					this.params[parent][this.propertyName] = this.params[this.params.length - 1];
+					break;
 					case "array":
-						this.params[parent].push(this.params[this.params.length - 1]);
-						break;
+					this.params[parent].push(this.params[this.params.length - 1]);
+					break;
 				}
 			}
 		}
@@ -577,9 +577,9 @@ Builder.buildDOM = function(xml) {
 Date.prototype.toIso8601 = function() {
 	// Vars
 	var year = this.getYear(),
-		month = this.getMonth() + 1,
-		day = this.getDate(),
-		time = this.toTimeString().substr(0, 8);
+	month = this.getMonth() + 1,
+	day = this.getDate(),
+	time = this.toTimeString().substr(0, 8);
 
 	// Normalization
 	if (year < 1900) {
@@ -598,11 +598,11 @@ Date.prototype.toIso8601 = function() {
 Date.fromIso8601 = function(value) {
 	// Vars
 	var year = value.substr(0, 4),
-		month = value.substr(4, 2),
-		day = value.substr(6, 2),
-		hour = value.substr(9, 2),
-		minute = value.substr(12, 2),
-		sec = value.substr(15, 2);
+	month = value.substr(4, 2),
+	day = value.substr(6, 2),
+	hour = value.substr(9, 2),
+	minute = value.substr(12, 2),
+	sec = value.substr(15, 2);
 
 	return new Date(year, month - 1, day, hour, minute, sec, 0);
 };
@@ -622,10 +622,10 @@ Base64.prototype.encode = function() {
 	} else {
 		// Vars
 		var _byte = [],
-			_char = [],
-			_result = [],
-			j = 0,
-			i = 0;
+		_char = [],
+		_result = [],
+		j = 0,
+		i = 0;
 
 		for (i = 0; i < this.bytes.length; i += 3) {
 			_byte[0] = this.bytes.charCodeAt(i);
@@ -652,10 +652,10 @@ Base64.prototype.decode = function() {
 	} else {
 		// Vars
 		var _byte = [],
-			_char = [],
-			_result = [],
-			j = 0,
-			i = 0;
+		_char = [],
+		_result = [],
+		j = 0,
+		i = 0;
 
 		while ((this.bytes.length % 4) != 0) {
 			this.bytes += "=";

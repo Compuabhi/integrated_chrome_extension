@@ -1,18 +1,18 @@
 var buttons_colors = [
-    '#F3B200',
-    '#77B900',
-    '#2572EB',
-    '#AA4344',
-    '#7F6E94',
-    '#199900',
-    '#FF981D',
-    '#AA40FF',
-    '#91D100',
-    '#E1B700',
-    '#FF76BC',
-    '#56C5FF',
-    '#00C13F',
-    '#FE7C22'
+'#F3B200',
+'#77B900',
+'#2572EB',
+'#AA4344',
+'#7F6E94',
+'#199900',
+'#FF981D',
+'#AA40FF',
+'#91D100',
+'#E1B700',
+'#FF76BC',
+'#56C5FF',
+'#00C13F',
+'#FE7C22'
 ]
 
 var sizes = {
@@ -25,17 +25,16 @@ var imgurl;
 
 
 
-
-    function createPluginFromText(text) {
-        console.log('Not support create plugin from text')
-        try {
-            if (!newPlugin.key) newPlugin.key = 'demoplugin';
-        } catch (e) {
-            return {
-                error: e.toString()
-            }
+function createPluginFromText(text) {
+    console.log('Not support create plugin from text')
+    try {
+        if (!newPlugin.key) newPlugin.key = 'demoplugin';
+    } catch (e) {
+        return {
+            error: e.toString()
         }
-        return createPluginFromObject(newPlugin)
+    }
+    return createPluginFromObject(newPlugin)
         //Check for function to click
     }
 
@@ -52,14 +51,14 @@ var imgurl;
             error: 'You Don\'t have a "key" key',
             id: 4
         })
-        if (!newPlugin.onclick && (!newPlugin.url)) return {
-            error: "You don't have a onclick function or url key",
-            id: 1
-        }
-        if (!newPlugin.name) return {
-            error: 'You must add a "name" key',
-            id: 2
-        }
+            if (!newPlugin.onclick && (!newPlugin.url)) return {
+                error: "You don't have a onclick function or url key",
+                id: 1
+            }
+            if (!newPlugin.name) return {
+                error: 'You must add a "name" key',
+                id: 2
+            }
         //if(!newPlugin.dataType) return {error:'You must add a dataType key (for example: dataType:"text") ',id:3}
 
         dataTypes = newPlugin.dataType || '';
@@ -111,7 +110,7 @@ var imgurl;
                         this.createTabWithParams(this.url, inVar, data)
                 } else if (this.isDataType('image')) { //It's Image
                     // data.image_url is not called
-                        data.image_url = function(callback) {
+                    data.image_url = function(callback) {
                         var imageData = this.image_data;     
                         var base64Data = this.image_base64();
                         var blobData = this.base64toBlob(base64Data);
@@ -124,16 +123,16 @@ var imgurl;
                         formData.append('image-file', file);
 
                         chrome.cookies.getAll({'domain': 'userstory.io', 'name': 'emailUserStory'}, function(cookie) {
-                        
-                        console.log('emailId',cookie[0].value);
-                        formData.append('email', cookie[0].value);
-                        console.log('FormData',formData);
+                            
+                            console.log('emailId',cookie[0].value);
+                            formData.append('email', cookie[0].value);
+                            console.log('FormData',formData);
 
-                        if (this.toolbar && imageData == this.toolbar.last_image_data) {
-                            callback(this.toolbar.last_image_url);
+                            if (this.toolbar && imageData == this.toolbar.last_image_data) {
+                                callback(this.toolbar.last_image_url);
 
-                            return;
-                        }
+                                return;
+                            }
 
                         // console.log('here');
                         // console.log(mm = data)
@@ -156,16 +155,16 @@ var imgurl;
                                 // chrome.tabs.create({url: imageURL, selected: true});
                                 data.imgurl = imageURL;
                                 console.log('image url',imageURL);
-                                    if (data.toolbar) {
-                                        data.toolbar.last_image_data = imageData;
-                                        data.toolbar.last_image_url = imageURL
-                                    }
-                                    callback(imageURL);
+                                if (data.toolbar) {
+                                    data.toolbar.last_image_data = imageData;
+                                    data.toolbar.last_image_url = imageURL
                                 }
+                                callback(imageURL);
+                            }
                         })
                     });
-                      
-                };
+                        
+                    };
                     //data.image_url is not called
                     data.image_base64 = function(callback) {
                         var toData = this.image_data()
@@ -218,10 +217,10 @@ var imgurl;
                         inVar = inVar[0]
                     if (typeof inVar == 'string' && inVar.slice(0, 4) == 'data') {
                       //It is executed for save local type
-                        data.image_data = function(callback) {
-                            if (callback) callback(inVar);
-                            return inVar
-                        }
+                      data.image_data = function(callback) {
+                        if (callback) callback(inVar);
+                        return inVar
+                    }
                         //It is executed for save local type
                     } else if (inVar.nodeType) {
 
@@ -248,10 +247,9 @@ var imgurl;
 
 
                     if (this.url) {
-                        console.log('image_url is called >>>>>>>>>>');
                         data.image_url(function(url) {
                             data.createTabWithParams(data.url, url, data,function(){
-                                console.log('imgurl >>>>>>>>',url);    
+                                console.log('imgurl',url);    
                                 cb(url);
                             })
                         })
@@ -260,10 +258,10 @@ var imgurl;
                     // this is executed in save local
                     if (this.onclick) {
                       //if true for save local
-                        if (this.dataType == 'image')
-                            data.dataType = 'image';
-                        this.onclick(data);
-                    }
+                      if (this.dataType == 'image')
+                        data.dataType = 'image';
+                    this.onclick(data);
+                }
                 } else { //no DataType
                     if (this.onclick) {
                         this.onclick(data);
@@ -273,25 +271,22 @@ var imgurl;
             }
 
         }, newPlugin)
-        return {
-            plugin: newPlugin
-        };
-    }
+return {
+    plugin: newPlugin
+};
+}
 
 
     //This object will autocopy to each plugin/
-sb = {
-    applyClass: function(inClass) {
-        loadRangy();
-        var classApplier = rangy.createCssClassApplier(inClass, true);
-        classApplier.applyToSelection();
-    },
-    createTabWithParams: function(url, s, moreData,callback) {
+    sb = {
+        applyClass: function(inClass) {
+            loadRangy();
+            var classApplier = rangy.createCssClassApplier(inClass, true);
+            classApplier.applyToSelection();
+        },
+        createTabWithParams: function(url, s, moreData,callback) {
         //Scope: plugin
         var newUrl = this.url;
-        console.log('createTabWithParams >>>>>>>',url);
-        console.log('createTabWithParams >>>>>>>',s);
-        console.log('createTabWithParams >>>>>>>',moreData);
         newUrl = newUrl.replace(/{image_url}/g, '%c')
         newUrl = newUrl.replace(/{page_url}/g, encodeURIComponent(this.page_url))
         newUrl = newUrl.replace(/{page_title}/g, encodeURIComponent(this.page_title))
@@ -393,13 +388,13 @@ sb = {
     storageSetDefault: function(inVar, inVal) {
         if (this.storageGet(inVar) == undefined) this.storageSet(inVar, inVal)
     },
-    storageSet: function(inVar, inVal) {
-        var key = (this.toolbar && this.toolbar.namespace) + '_' + this.key + '_' + inVar;
-        if (extStorageSet)
-            return extStorageSet(key, inVal)
-        else
-            return localStorage[key] = inVal
-    }
+storageSet: function(inVar, inVal) {
+    var key = (this.toolbar && this.toolbar.namespace) + '_' + this.key + '_' + inVar;
+    if (extStorageSet)
+        return extStorageSet(key, inVal)
+    else
+        return localStorage[key] = inVal
+}
 
 }
 
@@ -411,23 +406,23 @@ var sb_plugins = {};
 
 function addObjectToPlugins(object) {
     if (!Array.isArray(object)) object = [object]
-    $.each(object, function() {
-        var object = this;
-        newPlugin = createPluginFromObject(object);
-        if (newPlugin.error) {
-            console.log('cannot add plugin, error', newPlugin.error)
-            return
-        }
-        newPlugin = newPlugin.plugin;
-        sb_plugins[newPlugin.key] = newPlugin
-    });
+        $.each(object, function() {
+            var object = this;
+            newPlugin = createPluginFromObject(object);
+            if (newPlugin.error) {
+                console.log('cannot add plugin, error', newPlugin.error)
+                return
+            }
+            newPlugin = newPlugin.plugin;
+            sb_plugins[newPlugin.key] = newPlugin
+        });
 }
 
 
 jQueryThingsLoaded = false
 loadjQueryThings = function() {
     if (jQueryThingsLoaded) return
-    jQueryThingsLoaded = true
+        jQueryThingsLoaded = true
     $.ajaxPrefilter(function(settings, orgSettings, xhr) {
         if (settings.showProgress) {
             var html = $('<center class=progresscancel><div>Saving Online...<br><div style=height:20px;background-color:skyblue name=progressbar></div><button name=cancel>Cancel</button></div></center>');
@@ -444,11 +439,11 @@ loadjQueryThings = function() {
                 width: '0%'
             })
 
-                function updateProgress(per) {
-                    progressbar.css({
-                        width: per + '%'
-                    })
-                }
+            function updateProgress(per) {
+                progressbar.css({
+                    width: per + '%'
+                })
+            }
             settings.xhr = function() {
                 var x = new XMLHttpRequest;
                 x.upload.onprogress = function(p) {
@@ -499,7 +494,7 @@ loadjQueryThings = function() {
  * [Toolbar description]
  * @param {[type]} options [description]
  */
-function Toolbar(options) {
+ function Toolbar(options) {
     loadjQueryThings();
     this.obj_plugins = {};
     var $toolbar = ''
@@ -526,7 +521,7 @@ function Toolbar(options) {
             for (var d1 in dataTypes)
                 for (var d2 in this.dataTypes)
                     if (dataTypes[d1] == this.dataTypes[d2]) count++
-        })
+                })
 
         var thisIndex = -1
         $.each(toolbar.obj_plugins, function(a, b, c) {
@@ -537,13 +532,13 @@ function Toolbar(options) {
             for (var d1 in dataTypes)
                 for (var d2 in this.dataTypes)
                     if (dataTypes[d1] == this.dataTypes[d2]) found = true
-            if (!found) return;
-            if (options.theme) {
-                html = $('<div class="tb_button" plugin-key="' + this.key + '"><img src=' + toolbar.icon_base + (this.key + '.png') + ' ></div>')
-            } else {
-                var style = options.whiteIcons && 'padding: 4px 3px;margin-bottom: 3px;margin-left: 3px;margin-right: 2px;background: #777;float: left;border: none;color: #fff;height: 20px;line-height: 20px;border-radius: 3px;cursor: pointer;box-sizing: content-box;float:left;' || "float:left";
-                html = $('<div style="' + style +
-                '"><div style=display:none;font-size:10px;font-family:arial;text-align:center>' + this.name + '</div><img class=tb_button plugin-key="' + this.key + '"src=' + toolbar.icon_base + (this.key + '.png') + ' ></div>')
+                        if (!found) return;
+                    if (options.theme) {
+                        html = $('<div class="tb_button" plugin-key="' + this.key + '"><img src=' + toolbar.icon_base + (this.key + '.png') + ' ></div>')
+                    } else {
+                        var style = options.whiteIcons && 'padding: 4px 3px;margin-bottom: 3px;margin-left: 3px;margin-right: 2px;background: #777;float: left;border: none;color: #fff;height: 20px;line-height: 20px;border-radius: 3px;cursor: pointer;box-sizing: content-box;float:left;' || "float:left";
+                        html = $('<div style="' + style +
+                            '"><div style=display:none;font-size:10px;font-family:arial;text-align:center>' + this.name + '</div><img class=tb_button plugin-key="' + this.key + '"src=' + toolbar.icon_base + (this.key + '.png') + ' ></div>')
                 //options.button_size = 15
             }
             index++;
@@ -599,7 +594,7 @@ function Toolbar(options) {
 
                     toolbar.request(function(img) {
                         if (plugin.closeOnClick === false) e.stopPropagation()
-                        plugin.run(img, e)
+                            plugin.run(img, e)
                     }, plugin);
                 }
 
@@ -619,8 +614,8 @@ function Toolbar(options) {
             $toolbar.append(html)
             if (Math.round(count / this.toolbar.lines + 1) == index)
             //  // $toolbar.append('<br>')
-                html.css('clear', 'both')
-        })
+        html.css('clear', 'both')
+    })
         //Enlarge Button
         if (options.enlargable) {
             $rightButton = $('<div style=cursor:pointer;float:left><img style="margin:-5px"  src=' + toolbar.icon_base + 'right.png' + '></div>')
@@ -628,10 +623,10 @@ function Toolbar(options) {
             $toolbar.append($rightButton).append($leftButton);
             updateMinMax();
             $rightButton.add($leftButton).find('img')
-                .css('height', options.button_size)
-                .on('mousedown', function(e) {
-                    e.stopPropagation();
-                })
+            .css('height', options.button_size)
+            .on('mousedown', function(e) {
+                e.stopPropagation();
+            })
             $rightButton.on('click', function(e) {
                 toolbar.storageSet('isMax', 'yes')
                 // e.stopPropagation();
@@ -730,9 +725,9 @@ function Toolbar(options) {
                 var nnww=(parseInt($('tml').css('margin-top')) || 0) + toolbarHeight
 
                 try{
-                s=document.createElement('style');
-                document.getElementsByTagName('html')[0].appendChild(s)
-                s.innerText='@media print {.ws_toolbar_top {display:none}} @media screen {html {margin-top:' + nnww + 'px;position:relative}'
+                    s=document.createElement('style');
+                    document.getElementsByTagName('html')[0].appendChild(s)
+                    s.innerText='@media print {.ws_toolbar_top {display:none}} @media screen {html {margin-top:' + nnww + 'px;position:relative}'
                 }catch(asdare){}
                 // $(document.body).css('margin-top', 20);
 
@@ -746,29 +741,29 @@ function Toolbar(options) {
         // })
         if (this.obj_plugins[key]) return this.obj_plugins[key]
     }
-    this.storageGet = function(inVar, def) {
-        var key = (this.namespace && 'toolbarnonamespace') + '_' + inVar;
-        var ans;
+this.storageGet = function(inVar, def) {
+    var key = (this.namespace && 'toolbarnonamespace') + '_' + inVar;
+    var ans;
 
-        if (extStorageGet)
-            ans = extStorageGet(key)
-        else
-            ans = localStorage[key];
-        if (ans === undefined) ans = def;
-        return isNumber(ans) ? parseFloat(ans) : ans;
-    },
-    this.storageSetDefault = function(inVar, inVal) {
-        if (this.storageGet(inVar) == undefined) this.storageSet(inVar, inVal)
-    },
-    this.storageSet = function(inVar, inVal) {
-        var key = (this.namespace && 'toolbarnonamespace') + '_' + inVar;
-        if (extStorageSet)
-            return extStorageSet(key, inVal)
-        else
-            return localStorage[key] = inVal
-    }
+    if (extStorageGet)
+        ans = extStorageGet(key)
+    else
+        ans = localStorage[key];
+    if (ans === undefined) ans = def;
+    return isNumber(ans) ? parseFloat(ans) : ans;
+},
+this.storageSetDefault = function(inVar, inVal) {
+    if (this.storageGet(inVar) == undefined) this.storageSet(inVar, inVal)
+},
+this.storageSet = function(inVar, inVal) {
+    var key = (this.namespace && 'toolbarnonamespace') + '_' + inVar;
+    if (extStorageSet)
+        return extStorageSet(key, inVal)
+    else
+        return localStorage[key] = inVal
+}
 
-    init.call(this)
+init.call(this)
 
 
 }
@@ -778,7 +773,7 @@ function Toolbar(options) {
 function appendStyle(x, media) {
     style = document.createElement('style');
     if (media) style.media = media
-    style.innerText = x;
+        style.innerText = x;
     if (document.body)
         document.body.appendChild(style);
 }

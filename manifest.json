@@ -7,20 +7,20 @@
    "minimum_chrome_version":"49",
    "background":{
       "scripts":[
-          "js/whammy.js",
-         "js/constants.js",
-         "js/videoRecorder.js",
-         "background.js",
-         "RecordRTC.min.js",
-         "libs/md5.js",
-         "libs/jquery.js",
-          "js/common.js",
-          "settings.js",
-          "extension.js",
-          "js/screenshot.js",
-          "js/codeinjector.js",
-          "js/background.js"
-      ],
+       "js/whammy.js",
+       "js/constants.js",
+       "js/videoRecorder.js",
+       "background.js",
+       "RecordRTC.min.js",
+       "libs/md5.js",
+       "libs/jquery.js",
+       "js/common.js",
+       "settings.js",
+       "extension.js",
+       "js/screenshot.js",
+       "js/codeinjector.js",
+       "js/background.js"
+    ],
       "persistent":false
    },
    "content_scripts":[
